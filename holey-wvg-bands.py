@@ -6,13 +6,14 @@
 #    S. Fan, J. N. Winn, A. Devenyi, J. C. Chen, R. D. Meade, and
 #    J. D. Joannopoulos, "Guided and defect modes in periodic dielectric
 #    waveguides," J. Opt. Soc. Am. B, 12 (7), 1267-1272 (1995).
+# https://pdfs.semanticscholar.org/0aae/85cc0bd5a50dd81d71dd51a688b20d37d27a.pdf
 
 from __future__ import division
 
 import meep as mp
 
 
-def main():
+if __name__ == '__main__':
     # Some parameters to describe the geometry:
     eps = 13  # dielectric constant of waveguide
     w = 1.2  # width of waveguide
@@ -24,7 +25,8 @@ def main():
 
     cell = mp.Vector3(1, sy)
 
-    b = mp.Block(size=mp.Vector3(mp.inf, w, mp.inf), material=mp.Medium(epsilon=eps))
+    b = mp.Block(size=mp.Vector3(mp.inf, w, mp.inf),
+                 material=mp.Medium(epsilon=eps))
     c = mp.Cylinder(radius=r)
 
     fcen = 0.25  # pulse center frequency
@@ -53,8 +55,5 @@ def main():
         sim.run(mp.at_every(1 / fcen / 20, mp.output_hfield_z), until=1 / fcen)
 
     else:
-        sim.run_k_points(300, mp.interpolate(k_interp, [mp.Vector3(), mp.Vector3(0.5)]))
-
-
-if __name__ == '__main__':
-    main()
+        sim.run_k_points(300, mp.interpolate(
+            k_interp, [mp.Vector3(), mp.Vector3(0.5)]))
