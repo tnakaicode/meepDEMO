@@ -19,6 +19,7 @@ def eps_func(p):
     return mp.Medium(index=index_min + 0.5 * (index_max - index_min) *
                      (1 + math.cos(2 * math.pi * p.x)))
 
+
 geometry_lattice = mp.Lattice(size=mp.Vector3(1))  # 1d cell
 
 # We'll just make it the default material, so that it goes everywhere.
@@ -38,9 +39,6 @@ ms = mpb.ModeSolver(
 )
 
 
-def main():
+if __name__ == '__main__':
     # the TM and TE bands are degenerate, so we only need TM:
     ms.run_tm()
-
-if __name__ == '__main__':
-    main()
